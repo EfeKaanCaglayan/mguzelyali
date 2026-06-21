@@ -1328,7 +1328,11 @@ let adminTabActive = 'settings';
 // ════════════════════════════════════
 // 4. AUTH STATE LISTENER
 // ════════════════════════════════════
+var isRegistering = false;
+
 auth.onAuthStateChanged(async (user) => {
+  // Kayıt sırasında signOut olunca ana sayfaya atma
+  if (isRegistering) return;
   currentUser = user;
   if (user) {
     // Kullanıcı rolünü çek
@@ -1958,11 +1962,10 @@ async function doRegister() {
   if (!name || !email || !pass) return showAuthError('Tüm alanlar zorunludur');
   if (pass.length < 6) return showAuthError('Şifre en az 6 karakter olmalı');
   try {
+    isRegistering = true;
     const cred = await auth.createUserWithEmailAndPassword(email, pass);
     await cred.user.updateProfile({ displayName: name });
-    // Doğrulama maili gönder
     await cred.user.sendEmailVerification();
-    // Firestore'a kullanıcı kaydı
     await db.collection('users').doc(cred.user.uid).set({
       uid: cred.user.uid,
       email: email,
@@ -1975,15 +1978,18 @@ async function doRegister() {
       loginCount: 1
     });
     await writeLog('register', email, `Yeni üye: ${name}`);
-    // Hemen çıkış yap, doğrulama beklesin
     await auth.signOut();
-    showAuthError('');
-    document.getElementById('authError').style.background = '#f0fff4';
-    document.getElementById('authError').style.borderColor = '#86efac';
-    document.getElementById('authError').style.color = '#166534';
-    document.getElementById('authError').textContent = '📧 Doğrulama maili gönderildi! Mailinizi onaylayıp giriş yapabilirsiniz.';
-    document.getElementById('authError').classList.add('show');
+    isRegistering = false;
+    // Giriş sekmesine geç ve mesaj göster
+    switchAuthTab('login');
+    var errEl = document.getElementById('authError');
+    errEl.style.background = '#f0fff4';
+    errEl.style.borderColor = '#86efac';
+    errEl.style.color = '#166534';
+    errEl.textContent = '📧 Doğrulama maili gönderildi! Mailinizi onaylayıp giriş yapabilirsiniz.';
+    errEl.classList.add('show');
   } catch(e) {
+    isRegistering = false;
     showAuthError(getFirebaseError(e.code));
   }
 }
