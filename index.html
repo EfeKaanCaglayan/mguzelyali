@@ -959,31 +959,35 @@ footer{padding:28px 6%;text-align:center;background:#18130e;color:#cfc4b2}
 }
 @media(max-width:720px){
   /* NAV */
-  .nav{padding:0 4%;flex-wrap:wrap;gap:8px;height:auto;min-height:60px}
-  .nav-logo{height:44px}
-  .logo-text .brand-main{font-size:26px}
-  .logo-text .brand-sub{font-size:7px;letter-spacing:6px}
-  .nav-right{width:100%;justify-content:space-between;padding:0 0 8px}
-  .nav-links{gap:14px;flex-wrap:wrap}
-  .nav-links a{font-size:12px}
-  .nav-btn{padding:6px 12px;font-size:12px}
-  .lang-btn{padding:4px 8px;font-size:12px}
-  #navOrderBtn{font-size:12px}
+  .nav{padding:0 4%;flex-wrap:wrap;height:auto;min-height:60px;position:relative}
+  .nav-logo{height:40px}
+  .logo-text .brand-main{font-size:24px}
+  .logo-text .brand-sub{font-size:7px;letter-spacing:5px}
+  .nav-right{width:100%;justify-content:flex-end;padding:4px 0 8px;flex-wrap:nowrap;gap:6px;align-items:center}
+  .nav-links{display:none;width:100%;flex-direction:column;align-items:flex-start;gap:12px;padding:12px 0 8px;border-top:1px solid rgba(0,0,0,.08);order:10}
+  .nav-links.mobile-open{display:flex}
+  .nav-links a{font-size:14px;font-weight:600}
+  .hamburger{display:flex !important;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;order:-2;flex-shrink:0}
+  .hamburger span{display:block;width:20px;height:2px;background:#18130e;border-radius:2px;transition:.2s}
+  .lang-selector{order:-1;flex-shrink:0}
+  .lang-btn{padding:4px 8px;font-size:11px}
+  .nav-actions{order:0;gap:4px;flex-wrap:nowrap;flex-shrink:0}
+  .nav-btn{padding:5px 8px;font-size:11px}
+  .user-email{font-size:10px;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   /* HERO */
   .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-text{padding:36px 5% 28px;order:2}
-  h1{font-size:clamp(28px,8vw,48px);line-height:1.1}
+  .hero-text{padding:28px 5% 22px;order:2}
+  h1{font-size:clamp(26px,8vw,42px);line-height:1.1}
   .kicker{font-size:11px;margin-bottom:14px}
   .hero p{font-size:14px;margin-bottom:24px}
-  .btn{padding:13px 22px;font-size:13px}
+  .btn{padding:12px 20px;font-size:13px}
   .slider{height:60vw;min-height:260px;order:1}
 
   /* SECTIONS */
   section{padding:44px 5%}
-  .head h2{font-size:28px;margin-bottom:10px}
-  .head{display:block}
-  .head p{font-size:14px}
+  .exclusive-header h2{font-size:28px;margin-bottom:10px}
+  .exclusive-header{margin-bottom:20px;text-align:left}
 
   /* CATALOG */
   .product-grid,.exclusive-grid{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -1020,19 +1024,12 @@ footer{padding:28px 6%;text-align:center;background:#18130e;color:#cfc4b2}
 }
 @media(max-width:480px){
   .product-grid,.exclusive-grid{grid-template-columns:1fr}
-  /* Hamburger menü */
-  .nav-links{display:none;position:fixed;inset:0;top:60px;background:#fbf7ef;z-index:300;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:40px 20px}
-  .nav-links.mobile-open{display:flex}
-  .nav-links a{font-size:18px;font-weight:700}
-  .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
-  .hamburger span{display:block;width:22px;height:2px;background:#18130e;border-radius:2px;transition:.2s}
-  .hero-text{padding:28px 5% 22px}
-  h1{font-size:clamp(26px,9vw,40px)}
+  .hero-text{padding:22px 5% 18px}
+  h1{font-size:clamp(22px,9vw,34px)}
   .timeline{grid-template-columns:1fr}
   .order-fields>div{grid-column:1/-1}
-  /* Floating order btn her zaman görünsün */
-  .hamburger{display:flex !important}
-  .order-cart-btn{display:block !important;bottom:16px;right:16px}
+  .user-email{display:none !important}
+  .nav-btn{padding:5px 7px;font-size:10px}
 }
 
 #exclusiveSection{background:linear-gradient(180deg,#f5f0e6,#ede6d8);padding:60px 6%}
