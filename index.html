@@ -1331,6 +1331,11 @@ let adminTabActive = 'settings';
 auth.onAuthStateChanged(async (user) => {
   currentUser = user;
   if (user) {
+    // Email/şifre ile giriş yaptıysa ve doğrulanmamışsa çıkış yap
+    if (!user.emailVerified && user.providerData[0] && user.providerData[0].providerId === 'password') {
+      await auth.signOut();
+      return;
+    }
     // Kullanıcı rolünü çek
     try {
       const userDoc = await db.collection('users').doc(user.uid).get();
