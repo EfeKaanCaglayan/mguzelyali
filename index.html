@@ -1331,11 +1331,6 @@ let adminTabActive = 'settings';
 auth.onAuthStateChanged(async (user) => {
   currentUser = user;
   if (user) {
-    // Email/şifre ile giriş yaptıysa ve doğrulanmamışsa çıkış yap
-    if (!user.emailVerified && user.providerData[0] && user.providerData[0].providerId === 'password') {
-      await auth.signOut();
-      return;
-    }
     // Kullanıcı rolünü çek
     try {
       const userDoc = await db.collection('users').doc(user.uid).get();
@@ -1344,7 +1339,6 @@ auth.onAuthStateChanged(async (user) => {
       currentRole = 'user';
     }
     updateNavForUser(user);
-    // Log: giriş
     writeLog('login', user.email);
   } else {
     currentRole = null;
@@ -1941,17 +1935,7 @@ async function doLogin() {
   const pass  = document.getElementById('loginPass').value;
   if (!email || !pass) return showAuthError('E-posta ve şifre gerekli');
   try {
-    const cred = await auth.signInWithEmailAndPassword(email, pass);
-    if (!cred.user.emailVerified) {
-      await auth.signOut();
-      var errEl = document.getElementById('authError');
-      errEl.style.background = '#fffbeb';
-      errEl.style.borderColor = '#fcd34d';
-      errEl.style.color = '#92400e';
-      errEl.innerHTML = '📧 E-posta adresiniz doğrulanmamış.<br>Mailinizi kontrol edin. <a href="#" onclick="resendVerification(\'' + email + '\',\'' + pass + '\')" style="color:#b45309;font-weight:700">Tekrar gönder</a>';
-      errEl.classList.add('show');
-      return;
-    }
+    await auth.signInWithEmailAndPassword(email, pass);
     showToast('Giriş başarılı! Hoş geldiniz 👋', 'success');
   } catch(e) {
     showAuthError(getFirebaseError(e.code));
