@@ -693,6 +693,7 @@ html{scroll-behavior:smooth}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f7f1e8;color:#18130e}
 
 /* ── NAV ── */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
 .nav{position:sticky;top:0;z-index:30;background:#faf6ef;border-bottom:1px solid rgba(0,0,0,.08);padding:0 6%;height:80px;display:flex;justify-content:space-between;align-items:center;}
 .logo-img{height:76px;width:auto;display:block;}
 .nav-right{display:flex;align-items:center;gap:32px}.nav-links{display:flex;align-items:center;gap:32px}.nav-actions{display:flex;align-items:center;gap:14px}
@@ -988,6 +989,7 @@ footer{padding:28px 6%;text-align:center;background:#18130e;color:#cfc4b2}
   section{padding:44px 5%}
   .exclusive-header h2{font-size:28px;margin-bottom:10px}
   .exclusive-header{margin-bottom:20px;text-align:left}
+  .exclusive-grid{grid-template-columns:repeat(2,1fr);gap:12px}
 
   /* CATALOG */
   .product-grid,.exclusive-grid{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -1197,7 +1199,7 @@ footer{padding:28px 6%;text-align:center;background:#18130e;color:#cfc4b2}
       <a href="#" onclick="openOrderSheet(); return false;" id="navOrderBtn" style="display:none">📋 Sipariş Föyü <span class="order-cart-badge" id="navOrderCount" style="display:none">0</span></a>
       <a href="#iletisim" onclick="scrollTo('iletisim')">İletişim</a>
     </div>
-    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" style="display:none">
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
     </button>
     <div class="lang-selector" id="langSelector">
