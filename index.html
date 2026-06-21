@@ -1020,11 +1020,19 @@ footer{padding:28px 6%;text-align:center;background:#18130e;color:#cfc4b2}
 }
 @media(max-width:480px){
   .product-grid,.exclusive-grid{grid-template-columns:1fr}
-  .nav-links{display:none}
+  /* Hamburger menü */
+  .nav-links{display:none;position:fixed;inset:0;top:60px;background:#fbf7ef;z-index:300;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:40px 20px}
+  .nav-links.mobile-open{display:flex}
+  .nav-links a{font-size:18px;font-weight:700}
+  .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+  .hamburger span{display:block;width:22px;height:2px;background:#18130e;border-radius:2px;transition:.2s}
   .hero-text{padding:28px 5% 22px}
   h1{font-size:clamp(26px,9vw,40px)}
   .timeline{grid-template-columns:1fr}
   .order-fields>div{grid-column:1/-1}
+  /* Floating order btn her zaman görünsün */
+  .hamburger{display:flex !important}
+  .order-cart-btn{display:block !important;bottom:16px;right:16px}
 }
 
 #exclusiveSection{background:linear-gradient(180deg,#f5f0e6,#ede6d8);padding:60px 6%}
@@ -1192,6 +1200,9 @@ footer{padding:28px 6%;text-align:center;background:#18130e;color:#cfc4b2}
       <a href="#" onclick="openOrderSheet(); return false;" id="navOrderBtn" style="display:none">📋 Sipariş Föyü <span class="order-cart-badge" id="navOrderCount" style="display:none">0</span></a>
       <a href="#iletisim" onclick="scrollTo('iletisim')">İletişim</a>
     </div>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" style="display:none">
+      <span></span><span></span><span></span>
+    </button>
     <div class="lang-selector" id="langSelector">
       <button class="lang-btn" onclick="toggleLangDropdown()">
         <span class="flag" id="currentFlag">🇹🇷</span>
@@ -1500,6 +1511,16 @@ function updateNavForGuest() {
 // ════════════════════════════════════
 // 7. AUTH WALL
 // ════════════════════════════════════
+function toggleMobileMenu() {
+  var links = document.getElementById('navLinks');
+  var btn = document.getElementById('hamburgerBtn');
+  if (links) links.classList.toggle('mobile-open');
+}
+function closeMobileMenu() {
+  var links = document.getElementById('navLinks');
+  if (links) links.classList.remove('mobile-open');
+}
+
 function scrollToOrLogin(id) {
   if (!currentUser) {
     showAuthWall(false);
